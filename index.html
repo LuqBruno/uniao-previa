@@ -9,12 +9,13 @@
 <meta name="theme-color" content="#0A1440">
 <meta property="og:title" content="Vidraçaria União — Vidro com técnica e segurança (prévia)">
 <meta property="og:description" content="Prévia conceitual por Bruno Luque. Não é o site oficial.">
-<meta property="og:image" content="assets/obra-box-curvo.jpg">
+<meta property="og:image" content="assets/og-uniao.jpg">
 <link rel="icon" href="assets/logo-uniao.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="assets/obra-box-curvo.webp" type="image/webp">
+<link rel="preload" as="image" type="image/webp" media="(min-width: 761px)" imagesrcset="assets/hero-desktop-1280.webp 1280w, assets/hero-desktop-1920.webp 1920w" imagesizes="100vw">
+<link rel="preload" as="image" type="image/webp" media="(max-width: 760px)" imagesrcset="assets/hero-mobile-720.webp 720w, assets/hero-mobile-1080.webp 1080w" imagesizes="100vw">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -47,8 +48,34 @@
 <!-- HERO: a lâmina canelada corre como porta de box -->
 <section class="hero" id="inicio" data-hero aria-labelledby="hero-titulo">
   <div class="hero__palco">
+    <figure class="moldura" data-moldura>
+      <picture>
+        <source media="(max-width: 760px)" type="image/webp" srcset="assets/hero-mobile-720.webp 720w, assets/hero-mobile-1080.webp 1080w" sizes="100vw">
+        <source media="(max-width: 760px)" srcset="assets/hero-mobile-720.jpg 720w, assets/hero-mobile-1080.jpg 1080w" sizes="100vw">
+        <source type="image/webp" srcset="assets/hero-desktop-1280.webp 1280w, assets/hero-desktop-1920.webp 1920w" sizes="100vw">
+        <img class="moldura__foto" src="assets/hero-desktop-1920.jpg" srcset="assets/hero-desktop-1280.jpg 1280w, assets/hero-desktop-1920.jpg 1920w" sizes="100vw" alt="Banheiro contemporâneo com box curvo em vidro canelado e perfis pretos foscos, com luz natural entrando pela janela (imagem ilustrativa)" width="1920" height="1080" fetchpriority="high">
+      </picture>
+      <div class="lamina" data-lamina aria-hidden="true">
+        <div class="lamina__vidro">
+          <picture>
+            <source media="(max-width: 760px)" type="image/webp" srcset="assets/hero-mobile-720.webp 720w, assets/hero-mobile-1080.webp 1080w" sizes="100vw">
+            <source media="(max-width: 760px)" srcset="assets/hero-mobile-720.jpg 720w, assets/hero-mobile-1080.jpg 1080w" sizes="100vw">
+            <source type="image/webp" srcset="assets/hero-desktop-1280.webp 1280w, assets/hero-desktop-1920.webp 1920w" sizes="100vw">
+            <img class="lamina__copia" src="assets/hero-desktop-1920.jpg" srcset="assets/hero-desktop-1280.jpg 1280w, assets/hero-desktop-1920.jpg 1920w" sizes="100vw" alt="" width="1920" height="1080">
+          </picture>
+        </div>
+        <span class="lamina__puxador"></span>
+      </div>
+      <div class="hero__veu" aria-hidden="true"></div>
+      <div class="regua" aria-hidden="true"><span>0</span><span>2100 mm</span></div>
+      <figcaption class="moldura__legenda">
+        <span class="contador" data-abertura>0% aberta</span>
+        <span class="selo-ilustrativo">Imagem ilustrativa</span>
+      </figcaption>
+    </figure>
+
     <div class="hero__texto">
-      <p class="sobretitulo"><span class="filete"></span>Tubarão e região · desde 1969</p>
+      <p class="sobretitulo sobretitulo--claro"><span class="filete"></span>Tubarão e região · desde 1969</p>
       <h1 id="hero-titulo" class="mascara">
         <span class="linha"><span>Vidro com técnica</span></span>
         <span class="linha"><span><em>e segurança.</em></span></span>
@@ -59,32 +86,14 @@
           <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3Z"/></svg>
           Solicitar orçamento
         </a>
-        <a class="botao botao--linha" href="#linhas">Ver as linhas</a>
+        <a class="botao botao--vidro" href="#linhas">Ver as linhas</a>
       </div>
       <ul class="hero__linhas" aria-label="Linhas de produto">
         <li>Box</li><li>Sacadas</li><li>Fachadas</li><li>Esquadrias</li>
       </ul>
     </div>
-
-    <figure class="moldura" data-moldura>
-      <picture>
-        <source srcset="assets/obra-box-curvo.webp" type="image/webp">
-        <img class="moldura__foto" src="assets/obra-box-curvo.jpg" alt="Box de banheiro em vidro curvo canelado com perfis dourados, ao lado de uma banheira e janela com vista da cidade" width="360" height="470" fetchpriority="high">
-      </picture>
-      <div class="lamina" data-lamina aria-hidden="true">
-        <div class="lamina__vidro">
-          <img class="lamina__copia" src="assets/obra-box-curvo.jpg" alt="" width="360" height="470">
-        </div>
-        <span class="lamina__puxador"></span>
-      </div>
-      <div class="regua" aria-hidden="true"><span>0</span><span>470 mm</span></div>
-      <figcaption class="moldura__legenda">
-        <span class="contador" data-abertura>0%</span>
-        Box em vidro curvo canelado 4+5, temperado e laminado, com kit em inox Gold — publicado pela União.
-      </figcaption>
-    </figure>
   </div>
-  <p class="hero__dica" aria-hidden="true">Role para correr a lâmina</p>
+  <p class="hero__dica" aria-hidden="true"><span></span>Role para abrir o vidro</p>
 </section>
 
 <!-- LINHAS: lâminas que se expandem -->
@@ -92,52 +101,57 @@
   <div class="secao__cabeca">
     <p class="sobretitulo"><span class="filete"></span>O que a União faz</p>
     <h2 id="linhas-titulo" class="mascara"><span class="linha"><span>Quatro linhas,</span></span> <span class="linha"><span><em>uma especificação.</em></span></span></h2>
-    <p class="secao__lead">Cada vão pede um vidro. Escolha a linha para ver o que entra no projeto.</p>
+    <p class="secao__lead">Cada vão pede um vidro. Escolha a linha: o vidro canelado sai da frente e mostra o que entra no projeto.</p>
   </div>
 
   <div class="laminas" data-laminas>
     <article class="painel is-aberto" data-painel>
       <button class="painel__aba" aria-expanded="true" aria-controls="p-box" id="t-box"><span class="painel__n">01</span><span class="painel__nome">Box</span></button>
+      <picture class="painel__foto"><source srcset="assets/hero-mobile-720.webp" type="image/webp"><img src="assets/hero-mobile-720.jpg" alt="" loading="lazy" width="720" height="1125"></picture>
+      <span class="painel__selo" aria-hidden="true">Imagem ilustrativa</span>
       <div class="painel__corpo" id="p-box" role="region" aria-labelledby="t-box">
         <h3>Box de banheiro</h3>
         <p>De correr, de abrir, até o teto, curvo ou canelado. Sistemas com amortecimento e kits em inox, preto ou dourado.</p>
         <ul class="tags"><li>Temperado</li><li>Laminado</li><li>Canelado</li><li>Até o teto</li></ul>
         <a class="botao botao--escuro" data-whats="Olá! Gostaria de um orçamento de box de banheiro." href="https://wa.me/5548991230037" target="_blank" rel="noopener">Orçar box</a>
       </div>
-      <svg class="painel__desenho" viewBox="0 0 120 160" aria-hidden="true"><rect x="10" y="8" width="100" height="144" rx="2"/><path d="M60 8v144M30 70v20M90 70v20"/><path class="d" d="M20 20 40 0"/></svg>
+      
     </article>
 
     <article class="painel" data-painel>
       <button class="painel__aba" aria-expanded="false" aria-controls="p-sacadas" id="t-sacadas"><span class="painel__n">02</span><span class="painel__nome">Sacadas</span></button>
+      <picture class="painel__foto"><source srcset="assets/linha-sacada.webp" type="image/webp"><img src="assets/linha-sacada.jpg" alt="" loading="lazy" width="720" height="1125"></picture>
+      <span class="painel__selo" aria-hidden="true">Imagem ilustrativa</span>
       <div class="painel__corpo" id="p-sacadas" role="region" aria-labelledby="t-sacadas" hidden>
         <h3>Sacadas e guarda-corpos</h3>
         <p>Fechamento de sacada e guarda-corpo com o vidro especificado para o uso — a transparência não pode parecer falta de proteção.</p>
         <ul class="tags"><li>Fechamento de sacada</li><li>Guarda-corpo</li><li>Coberturas</li></ul>
         <a class="botao botao--escuro" data-whats="Olá! Gostaria de um orçamento de sacada / guarda-corpo." href="https://wa.me/5548991230037" target="_blank" rel="noopener">Orçar sacada</a>
       </div>
-      <svg class="painel__desenho" viewBox="0 0 120 160" aria-hidden="true"><path d="M10 150h100M10 60h100"/><path d="M20 60v90M47 60v90M74 60v90M101 60v90"/><path class="d" d="M10 40h100"/></svg>
     </article>
 
     <article class="painel" data-painel>
       <button class="painel__aba" aria-expanded="false" aria-controls="p-fachadas" id="t-fachadas"><span class="painel__n">03</span><span class="painel__nome">Fachadas</span></button>
+      <picture class="painel__foto"><source srcset="assets/linha-fachada.webp" type="image/webp"><img src="assets/linha-fachada.jpg" alt="" loading="lazy" width="720" height="1125"></picture>
+      <span class="painel__selo" aria-hidden="true">Imagem ilustrativa</span>
       <div class="painel__corpo" id="p-fachadas" role="region" aria-labelledby="t-fachadas" hidden>
         <h3>Fachadas</h3>
         <p>Grandes superfícies envidraçadas pensadas a partir do entorno: luz, calor, reflexo — e até quem passa voando.</p>
         <ul class="tags"><li>Pele de vidro</li><li>Vitrines</li><li>Grandes vãos</li></ul>
         <a class="botao botao--escuro" data-whats="Olá! Gostaria de conversar sobre um projeto de fachada em vidro." href="https://wa.me/5548991230037" target="_blank" rel="noopener">Falar sobre fachada</a>
       </div>
-      <svg class="painel__desenho" viewBox="0 0 120 160" aria-hidden="true"><rect x="10" y="8" width="100" height="144"/><path d="M10 44h100M10 80h100M10 116h100M43 8v144M77 8v144"/></svg>
     </article>
 
     <article class="painel" data-painel>
       <button class="painel__aba" aria-expanded="false" aria-controls="p-esquadrias" id="t-esquadrias"><span class="painel__n">04</span><span class="painel__nome">Esquadrias</span></button>
+      <picture class="painel__foto"><source srcset="assets/linha-esquadria.webp" type="image/webp"><img src="assets/linha-esquadria.jpg" alt="" loading="lazy" width="720" height="1125"></picture>
+      <span class="painel__selo" aria-hidden="true">Imagem ilustrativa</span>
       <div class="painel__corpo" id="p-esquadrias" role="region" aria-labelledby="t-esquadrias" hidden>
         <h3>Esquadrias</h3>
         <p>Janelas, portas e vãos sob medida, com o vidro e o sistema de abertura definidos para cada ambiente.</p>
         <ul class="tags"><li>Janelas</li><li>Portas</li><li>Sob medida</li></ul>
         <a class="botao botao--escuro" data-whats="Olá! Gostaria de um orçamento de esquadrias." href="https://wa.me/5548991230037" target="_blank" rel="noopener">Orçar esquadria</a>
       </div>
-      <svg class="painel__desenho" viewBox="0 0 120 160" aria-hidden="true"><rect x="10" y="8" width="100" height="144"/><path d="M60 8v144M10 80h100"/><path class="d" d="M54 70v20M66 70v20"/></svg>
     </article>
   </div>
 </section>
@@ -169,6 +183,7 @@
 
 <!-- TÉCNICA: corte da lâmina -->
 <section class="tecnica" id="tecnica" data-tecnica aria-labelledby="tecnica-titulo">
+  <div class="tecnica__curso" data-curso>
   <div class="tecnica__palco">
     <div class="tecnica__texto">
       <p class="sobretitulo sobretitulo--claro"><span class="filete"></span>Corte da lâmina</p>
@@ -178,6 +193,8 @@
         <button role="tab" aria-selected="false" data-tipo="laminado">Laminado</button>
         <button role="tab" aria-selected="false" data-tipo="sentry">Laminado SentryGlas</button>
       </div>
+      <div class="tecnica__trilho" aria-hidden="true"><span data-progresso></span></div>
+      <p class="tecnica__dica" aria-hidden="true"><span class="so-desk">Role para abrir o vidro</span><span class="so-mob">Role ou deslize sobre o vidro</span></p>
       <div class="tecnica__explica" aria-live="polite">
         <div data-explica="temperado">
           <h3>Temperado</h3>
@@ -224,7 +241,9 @@
         </g>
       </svg>
     </div>
-
+  </div>
+  </div>
+  <div class="tecnica__nota">
     <figure class="borda-verde">
       <picture><source srcset="assets/borda-verde.webp" type="image/webp"><img src="assets/borda-verde.jpg" alt="Tampo de vidro grosso com a borda em tom verde, apoiado em base metálica" width="518" height="275" loading="lazy"></picture>
       <figcaption><b>A borda esverdeada não é defeito.</b> É o ferro natural do vidro float, que aparece quando a luz atravessa a peça pelo lado. Arte publicada pela União.</figcaption>
@@ -283,7 +302,7 @@
 
 <footer class="rodape">
   <div class="rodape__marca"><img src="assets/logo-uniao.png" alt="" width="32" height="32"> Vidraçaria União · Vidros e Esquadrias · Tubarão/SC · desde 1969</div>
-  <p class="rodape__aviso"><strong>Prévia conceitual</strong> elaborada por Bruno Luque. Não é o site oficial da Vidraçaria União. Marca, fotos e textos de referência pertencem à União (Instagram oficial, consultado em 23/11/2026).</p>
+  <p class="rodape__aviso"><strong>Prévia conceitual</strong> elaborada por Bruno Luque. Não é o site oficial da Vidraçaria União. Marca, fotos de obras e textos de referência pertencem à União (Instagram oficial, consultado em 23/11/2026). As imagens do topo e das linhas são <strong>imagens ilustrativas</strong> geradas por IA para esta prévia e não representam obras executadas pela União.</p>
   <p class="assina"><img src="assets/bruno.svg" alt="" width="22" height="30" aria-hidden="true"> Bruno Luque · landing pages</p>
 </footer>
 

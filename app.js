@@ -27,7 +27,8 @@
     c.width = w; c.height = 2;
     const ctx = c.getContext('2d');
     const img = ctx.createImageData(w, 2);
-    const passo = w < 340 ? 11 : 15; // largura de cada canelura em px
+    const passo = w < 600 ? 12 : 22; // largura de cada canelura em px
+    moldura.style.setProperty('--passo', passo + 'px');
     for (let x = 0; x < w; x++) {
       const t = (x % passo) / passo;              // 0..1 dentro da canelura
       const lente = Math.sin(t * Math.PI * 2);     // curvatura da canelura
@@ -66,15 +67,17 @@
   }
 
   /* ---------- Corte da lâmina ---------- */
-  const tecnica = document.querySelector('[data-tecnica]');
+  const tecnica = document.querySelector('[data-curso]');
   const corte = document.querySelector('[data-corte]');
+  // Progresso 0..1 ao atravessar a seção fixa: três etapas (temperado, laminado, SentryGlas).
   function lerTecnica() {
     if (!tecnica) return 0;
     const r = tecnica.getBoundingClientRect();
     const curso = tecnica.offsetHeight - innerHeight;
-    if (curso > 40) return clamp((-r.top + innerHeight * .15) / (curso * .7));
+    if (curso > 40) return clamp(-r.top / (curso * .94));
     return clamp((innerHeight * .85 - r.top) / (innerHeight * .9));
   }
+  const suave = k => k * k * (3 - 2 * k);
 
   /* ---------- Topo e barra fixa ---------- */
   const topo = document.querySelector('[data-topo]');
@@ -89,13 +92,13 @@
     if (reduz.matches) return;
     alvo = lerHero();
     if (!rodando) { rodando = true; requestAnimationFrame(passo); }
-    if (corte) corte.style.setProperty('--q', lerTecnica().toFixed(3));
+    if (corte) pintaTecnica(lerTecnica());
   }
 
   function iniciaMovimento() {
     if (reduz.matches) {
       if (moldura) { moldura.style.removeProperty('--p'); }
-      if (contador) contador.textContent = '62% aberta';
+      if (contador) contador.textContent = '100% aberta';
       if (corte) corte.style.setProperty('--q', '1');
     } else {
       atual = alvo = lerHero(); pintaHero(atual);
@@ -170,10 +173,14 @@
     laminado: ['Lâmina 4 mm', 'Intercamada PVB', 'Lâmina 5 mm'],
     sentry: ['Lâmina 4 mm', 'Intercamada SentryGlas', 'Lâmina 5 mm'],
   };
+  let botoes = [], tipoAtual = '', escolhe = () => {};
+  const ordem = ['temperado', 'laminado', 'sentry'];
   if (seletor && corte) {
-    const botoes = [...seletor.querySelectorAll('[data-tipo]')];
-    const escolhe = (b, foco) => {
+    botoes = [...seletor.querySelectorAll('[data-tipo]')];
+    escolhe = (b, foco) => {
       const tipo = b.dataset.tipo;
+      if (tipo === tipoAtual && !foco) return;
+      tipoAtual = tipo;
       botoes.forEach(x => { const on = x === b; x.setAttribute('aria-selected', on); x.tabIndex = on ? 0 : -1; });
       corte.dataset.tipo = tipo;
       document.querySelectorAll('[data-explica]').forEach(d => { d.hidden = d.dataset.explica !== tipo; });
@@ -181,17 +188,47 @@
       corte.querySelector('[data-rotulo-a]').textContent = a;
       corte.querySelector('[data-rotulo-b]').textContent = m;
       corte.querySelector('[data-rotulo-c]').textContent = c;
-      if (foco) b.focus();
+      if (foco) b.focus({ preventScroll: true });
+    };
+    // Escolha manual: com rolagem guiada, leva a página até a etapa; sem ela, só troca.
+    const vaiPara = (i, foco) => {
+      i = (i + ordem.length) % ordem.length;
+      escolhe(botoes[i], foco);
+      const curso = tecnica.offsetHeight - innerHeight;
+      if (!reduz.matches && curso > 40) {
+        const topo0 = tecnica.getBoundingClientRect().top + scrollY;
+        const alvoT = i === 0 ? .02 : i === 1 ? .5 : .88;
+        scrollTo({ top: topo0 + alvoT * curso * .94, behavior: 'smooth' });
+      }
     };
     botoes.forEach((b, i) => {
       b.tabIndex = i === 0 ? 0 : -1;
-      b.addEventListener('click', () => escolhe(b));
+      b.addEventListener('click', () => vaiPara(i));
       b.addEventListener('keydown', e => {
         const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
-        if (d) { e.preventDefault(); escolhe(botoes[(i + d + botoes.length) % botoes.length], true); }
+        if (d) { e.preventDefault(); vaiPara(i + d, true); }
       });
     });
+    // Arrastar o vidro para o lado troca o tipo (dedo ou mouse).
+    let x0 = null, y0 = 0;
+    corte.addEventListener('pointerdown', e => { x0 = e.clientX; y0 = e.clientY; });
+    addEventListener('pointerup', e => {
+      if (x0 === null) return;
+      const dx = e.clientX - x0, dy = e.clientY - y0; x0 = null;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2) vaiPara(ordem.indexOf(tipoAtual) + (dx < 0 ? 1 : -1));
+    });
+    addEventListener('pointercancel', () => { x0 = null; });
     escolhe(botoes[0]);
+  }
+  // Cada etapa ocupa um terço do curso: o vidro chega fechado e as camadas se abrem.
+  const progresso = document.querySelector('[data-progresso]');
+  function pintaTecnica(t) {
+    if (!corte) return;
+    if (progresso) progresso.style.setProperty('--t', t.toFixed(3));
+    const pos = t * 3, i = Math.min(2, Math.floor(pos));
+    const local = clamp((pos - i - .08) / .55);
+    if (botoes[i]) escolhe(botoes[i]);
+    corte.style.setProperty('--q', suave(local).toFixed(3));
   }
 
   /* ---------- Formulário → WhatsApp ---------- */
